@@ -1,0 +1,110 @@
+apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    defaultConfig {
+        applicationId "dev.nightq.wts"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    // 修改编译后apk的文件名，带上版本号
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            output.outputFile = new File(output.outputFile.parent,
+                    output.outputFile.name.replace("release.apk",
+                            "v" + versionName + ".apk"))
+        }
+    }
+    //为了解决部分第三方库重复打包了META-INF的问题
+    packagingOptions{
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+    lintOptions {
+        abortOnError false
+    }
+
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+//    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+//        exclude group: 'com.android.support', module: 'support-annotations'
+//    })
+//    testCompile 'junit:junit:4.12'
+
+    compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:design:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:support-v13:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:recyclerview-v7:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:cardview-v7:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:design:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:customtabs:$rootProject.ext.supportLibraryVersion"
+
+    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.squareup.okhttp:okhttp:2.7.5'
+    compile 'com.squareup.retrofit:retrofit:1.9.0'
+    compile 'com.umeng.analytics:analytics:5.6.1'
+    compile 'com.makeramen:roundedimageview:2.2.1'
+    compile 'in.srain.cube:ultra-ptr:1.0.11'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.google.android.exoplayer:exoplayer:r1.5.9'
+
+    apt "com.google.dagger:dagger-compiler:2.2"
+    apt 'com.google.auto.factory:auto-factory:1.0-beta2'
+    provided 'org.glassfish:javax.annotation:10.0-b28'
+    compile 'com.google.dagger:dagger:2.2'
+    compile 'com.google.code.findbugs:jsr305:3.0.1'
+    compile 'com.google.guava:guava:18.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.github.bumptech.glide:okhttp-integration:1.4.0@aar'
+    compile 'jp.wasabeef:glide-transformations:2.0.0'
+    // 图片加载与处理
+    compile 'io.reactivex:rxjava:1.1.3'
+    compile 'io.reactivex:rxandroid:1.1.0'
+    // RxJava
+    compile 'com.alexvasilkov:gesture-views:2.1.1'
+    // 图片手势
+    compile 'com.jakewharton.threetenabp:threetenabp:1.0.3'
+
+    // LeanCloud 基础包
+    compile ('cn.leancloud.android:avoscloud-sdk:v3.+')
+
+    // 推送与实时聊天需要的包
+    compile ('cn.leancloud.android:avoscloud-push:v3.+@aar'){transitive = true}
+
+    // LeanCloud 统计包
+    compile ('cn.leancloud.android:avoscloud-statistics:v3.+')
+
+    // LeanCloud 用户反馈包
+    compile ('cn.leancloud.android:avoscloud-feedback:v3.+@aar')
+
+    // avoscloud-sns：LeanCloud 第三方登录包
+    compile ('cn.leancloud.android:avoscloud-sns:v3.+@aar')
+    compile ('cn.leancloud.android:qq-sdk:1.6.1-leancloud')
+    // 目前新浪微博官方只提供 jar 包的集成方式
+    // 请手动下载新浪微博 SDK 的 jar 包，将其放在 libs 目录下进行集成
+
+    // LeanCloud 应用内搜索包
+    compile ('cn.leancloud.android:avoscloud-search:v3.+@aar')
+
+    // rxlifecycle
+    compile 'com.trello:rxlifecycle:0.7.0'
+    // If you want pre-written Activities and Fragments you can subclass as providers
+    compile 'com.trello:rxlifecycle-components:0.7.0'
+
+}
+

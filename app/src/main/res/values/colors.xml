@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="app_main_color">#3ccdb1</color>
+    <color name="app_main_transparent_color">#003ccdb1</color>
+    <color name="app_main_dark_color">#00bea5</color>
+    <color name="app_main_bg_color">#efefef</color>
+
+    <color name="app_main_txt_color">#575757</color>
+    <color name="app_main_txt_light_color">#b5b5b5</color>
+    <color name="app_main_hint_color">@color/app_main_txt_light_color</color>
+
+    <color name="app_white">@android:color/white</color>
+    <color name="app_black">@android:color/black</color>
+    <color name="app_transparent">@android:color/transparent</color>
+    <color name="app_divider_color">#dddddd</color>
+
+</resources>

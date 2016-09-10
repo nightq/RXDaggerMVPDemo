@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="base_anim_pause">100</integer>
+    <integer name="base_anim_duration">1500</integer>
+    <integer name="base_loading_circle_middle">750</integer>
+</resources>

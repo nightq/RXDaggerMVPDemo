@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dev.nightq.wts.app.baseView.widgets.actionBar.ToolbarCustom
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/action_bar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/base_actionbar_height"
+    android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+    android:background="?attr/colorPrimary" />
+

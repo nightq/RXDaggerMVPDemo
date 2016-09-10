@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="base_io_exception">普通IO异常%s</string>
+    <string name="base_dir_exception">目录IO异常%s</string>
+    <string name="base_file_exception">文件IO异常%s</string>
+    <string name="base_deny_exception">没有权限异常%s</string>
+
+    <dimen name="base_actionbar_height">56dp</dimen>
+
+    <string name="base_loading">Loading...</string>
+    <string name="base_waiting">Waiting...</string>
+
+</resources>
