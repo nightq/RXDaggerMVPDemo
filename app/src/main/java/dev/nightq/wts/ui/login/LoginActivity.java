@@ -21,6 +21,20 @@ public class LoginActivity
         extends MVPActivityBase<LoginPresenter>
         implements LoginContract.View {
 
+    /**
+     * QQ
+     */
+    private static final String QQ_APP_ID = "1105611977";
+    private static final String QQ_APP_SEC = "HDUG0fIbJThScfAE";
+    private static final String QQ_APP_URL = "https://leancloud.cn/1.1/sns/goto/2mt4iu7n6pwsv370";
+
+    /**
+     * WEIBO
+     */
+    private static final String WEIBO_APP_ID = "728184422";
+    private static final String WEIBO_APP_SEC = "150e64dd066d18d63ee0304ac242308d";
+    private static final String WEIBO_APP_URL = "https://leancloud.cn/1.1/sns/goto/6l6n90b9f08sya8d";
+
     @Bind(R.id.btnLoginQQ)
     Button btnLoginQQ;
     @Bind(R.id.btnLoginWeibo)
@@ -66,18 +80,18 @@ public class LoginActivity
                 mPresenter.login(
                         this,
                         lastLoginType,
-                        "728184422",
-                        "150e64dd066d18d63ee0304ac242308d",
-                        "https://leancloud.cn/1.1/sns/goto/6l6n90b9f08sya8d");
+                        QQ_APP_ID,
+                        QQ_APP_SEC,
+                        QQ_APP_URL);
                 break;
             case R.id.btnLoginWeibo:
                 lastLoginType = SNSType.AVOSCloudSNSSinaWeibo;
                 mPresenter.login(
                         this,
                         lastLoginType,
-                        "1105611977",
-                        "HDUG0fIbJThScfAE",
-                        "https://leancloud.cn/1.1/sns/goto/2mt4iu7n6pwsv370");
+                        WEIBO_APP_ID,
+                        WEIBO_APP_SEC,
+                        WEIBO_APP_URL);
                 break;
             case R.id.btnLoginLean:
 //                lastLoginType = SNSType.AVOSCloudSNS;
