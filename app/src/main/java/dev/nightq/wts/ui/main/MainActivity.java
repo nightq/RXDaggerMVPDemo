@@ -15,16 +15,13 @@ import javax.inject.Inject;
 
 import dev.nightq.wts.R;
 import dev.nightq.wts.app.WTSApplication;
-import dev.nightq.wts.app.baseView.activity.ActivityBaseWithoutBar;
+import dev.nightq.wts.app.baseView.activity.MVPActivityBase;
 import dev.nightq.wts.repository.GlobalSPRepository;
 import dev.nightq.wts.repository.UserSPRepository;
 
-public class MainActivity extends ActivityBaseWithoutBar
+public class MainActivity extends MVPActivityBase<MainPresenter>
         implements NavigationView.OnNavigationItemSelectedListener,
         MainContract.View {
-
-    @Inject
-    MainPresenter mPresenter;
 
     @Inject
     GlobalSPRepository mGlobalSPRepository;
@@ -69,7 +66,7 @@ public class MainActivity extends ActivityBaseWithoutBar
 
     @Override
     public void loadDataOnCreate() {
-
+        mPresenter.loadAfterCreated();
     }
 
     @Override

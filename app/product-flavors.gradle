@@ -1,0 +1,143 @@
+android {
+
+    //多渠道
+    productFlavors {
+
+        dev{
+//            manifestPlaceholders = [ channelValue:"dev"]
+        }
+
+//        anzhuostore{
+//            manifestPlaceholders = [ channelValue:"anzhuostore"]
+//            ndk {
+//                abiFilters "armeabi-v7a", "armeabi"
+//            }
+//        }
+//        baidustore{
+//            manifestPlaceholders = [ channelValue:"baidustore" ]
+//            ndk {
+//                abiFilters "armeabi-v7a", "armeabi"
+//            }
+//        }
+//        chinastore{
+//            manifestPlaceholders = [ channelValue:"chinastore" ]
+//            ndk {
+//                abiFilters "armeabi-v7a", "armeabi"
+//            }
+//        }
+//        googleplay{
+//            manifestPlaceholders = [ channelValue:"googleplay" ]
+//            ndk {
+//                abiFilters "armeabi-v7a", "armeabi"
+//            }
+//        }
+//        googleplay_x86{
+//            manifestPlaceholders = [ channelValue:"googleplay" ]
+//            ndk{
+//                abiFilter "x86"
+//            }
+//        }
+//        huaweistore{
+//            manifestPlaceholders = [ channelValue:"huaweistore", splashScreen:true ]
+//            ndk {
+//                abiFilters "armeabi-v7a", "armeabi"
+//            }
+//        }
+//        lenovostore{
+//            manifestPlaceholders = [ channelValue:"lenovostore" ]
+//            ndk {
+//                abiFilters "armeabi-v7a", "armeabi"
+//            }
+//        }
+//        meizustore{
+//            manifestPlaceholders = [ channelValue:"meizustore" ]
+//            ndk {
+//                abiFilters "armeabi-v7a", "armeabi"
+//            }
+//        }
+//        mistore{
+//            manifestPlaceholders = [ channelValue:"mistore" ]
+//            ndk {
+//                abiFilters "armeabi-v7a", "armeabi"
+//            }
+//        }
+//        mumayi{
+//            manifestPlaceholders = [ channelValue:"mumayi" ]
+//            ndk {
+//                abiFilters "armeabi-v7a", "armeabi"
+//            }
+//        }
+//        oppostore{
+//            manifestPlaceholders = [ channelValue:"oppostore" ]
+//            ndk {
+//                abiFilters "armeabi-v7a", "armeabi"
+//            }
+//        }
+//        store360{
+//            manifestPlaceholders = [ channelValue:"store360"]
+//            ndk {
+//                abiFilters "armeabi-v7a", "armeabi"
+//            }
+//        }
+//        other{
+//            manifestPlaceholders = [ channelValue:"other"]
+//            ndk {
+//                abiFilters "armeabi-v7a", "armeabi"
+//            }
+//        }
+//        store91{
+//            manifestPlaceholders = [ channelValue:"store91" ]
+//            ndk {
+//                abiFilters "armeabi-v7a", "armeabi"
+//            }
+//        }
+//        tecentstore{
+//            manifestPlaceholders = [ channelValue:"tecentstore" ]
+//            ndk {
+//                abiFilters "armeabi-v7a", "armeabi"
+//            }
+//        }
+//        wandoujia{
+//            manifestPlaceholders = [ channelValue:"wandoujia" ]
+//            ndk {
+//                abiFilters "armeabi-v7a", "armeabi"
+//            }
+//        }
+//        jinlistore{
+//            manifestPlaceholders = [ channelValue:"jinlistore" ]
+//            ndk {
+//                abiFilters "armeabi-v7a", "armeabi"
+//            }
+//        }
+//        ppstore {
+//            manifestPlaceholders = [ channelValue:"ppstore" ]
+//            ndk {
+//                abiFilters "armeabi-v7a", "armeabi"
+//            }
+//        }
+//        letv {
+//            manifestPlaceholders = [ channelValue:"letv" ]
+//            ndk {
+//                abiFilters "armeabi-v7a", "armeabi"
+//            }
+//        }
+//        liebao {
+//            manifestPlaceholders = [ channelValue:"liebao" ]
+//            ndk {
+//                abiFilters "armeabi-v7a", "armeabi"
+//            }
+//        }
+//        sogoustore {
+//            manifestPlaceholders = [ channelValue:"sogoustore" ]
+//            ndk {
+//                abiFilters "armeabi-v7a", "armeabi"
+//            }
+//        }
+//        aliyun {
+//            manifestPlaceholders = [ channelValue:"aliyun" ]
+//            ndk {
+//                abiFilters "armeabi-v7a", "armeabi"
+//            }
+//        }
+    }
+}

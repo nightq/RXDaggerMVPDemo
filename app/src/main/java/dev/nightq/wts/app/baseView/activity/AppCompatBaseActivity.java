@@ -29,7 +29,7 @@ import dev.nightq.wts.app.baseView.widgets.actionBar.ToolbarCustom;
  * ActivityBaseHelper 的调用
  * <p>
  */
-public abstract class AppCompatBaseActivity
+abstract class AppCompatBaseActivity
         extends RxAppCompatActivity
         implements DialogControllerImpl {
 
