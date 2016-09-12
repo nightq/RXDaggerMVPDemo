@@ -26,21 +26,9 @@ abstract class ActivityStartupBase
         currentLayoutId = onCreateBase();
         if (currentLayoutId > 0) {
             setContentView(currentLayoutId);
-        } else {
             initActivityBaseView();
         }
         setupComponent();
         loadDataOnCreate();
-    }
-
-    /**
-     * 这里会调用initActivityBaseView，初始化view
-     *
-     * @param layoutResID
-     */
-    @Override
-    public void setContentView(int layoutResID) {
-        super.setContentView(layoutResID);
-        initActivityBaseView();
     }
 }

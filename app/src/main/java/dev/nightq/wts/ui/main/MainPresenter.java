@@ -8,7 +8,7 @@ import dev.nightq.wts.app.scope.ActivityScope;
  * Created by Nightq on 16/9/9.
  */
 @ActivityScope
-public class MainPresenter implements MainContract.Presenter {
+public class MainPresenter extends MainContract.Presenter {
 
     @Inject
     public MainPresenter() {

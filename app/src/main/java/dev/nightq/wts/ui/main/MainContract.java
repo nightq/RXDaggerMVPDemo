@@ -10,12 +10,11 @@ import dev.nightq.wts.app.baseView.BaseMVPView;
 
 public interface MainContract {
 
-
-    interface View extends BaseMVPView<Presenter> {
+    interface View extends BaseMVPView {
 
     }
 
-    interface Presenter extends BaseMVPPresenter {
+    class Presenter extends BaseMVPPresenter<View> {
 
     }
 }

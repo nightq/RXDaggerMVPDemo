@@ -1,9 +1,7 @@
 package dev.nightq.wts.ui.login;
 
 import android.app.Activity;
-import android.content.Context;
 
-import com.avos.avoscloud.AVException;
 import com.avos.sns.SNSType;
 
 import dev.nightq.wts.app.baseView.BaseMVPPresenter;
@@ -17,20 +15,23 @@ import dev.nightq.wts.app.baseView.BaseMVPView;
 public interface LoginContract {
 
 
-    interface View extends BaseMVPView<Presenter> {
+    interface View extends BaseMVPView {
 
-
+        /**
+         * 登录成功
+         */
+        void loginSuccess();
 
     }
 
-    interface Presenter extends BaseMVPPresenter {
+    abstract class Presenter extends BaseMVPPresenter<View> {
 
         /**
          * 登录
          */
-        void login(Activity activity,
-                           SNSType type, String appKey,
-                           String appSec,
-                           String redirectUrl);
+        abstract void login(Activity activity,
+                            SNSType type, String appKey,
+                            String appSec,
+                            String redirectUrl);
     }
 }

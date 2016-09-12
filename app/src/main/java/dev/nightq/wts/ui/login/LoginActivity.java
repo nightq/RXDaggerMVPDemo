@@ -67,6 +67,12 @@ public class LoginActivity
                 .build().inject(this);
     }
 
+    @Override
+    public void loginSuccess() {
+        setResult(RESULT_OK);
+        finish();
+    }
+
     SNSType lastLoginType;
 
     @OnClick({

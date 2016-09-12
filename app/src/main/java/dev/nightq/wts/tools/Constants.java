@@ -14,4 +14,19 @@ public interface Constants {
         String GLOBAL_SP = "global_sp";
     }
 
+    /**
+     * global 常量
+     */
+    interface GC {
+        String USER_SP = "user_sp";
+        String GLOBAL_SP = "global_sp";
+    }
+
+    /**
+     * user account 常量
+     */
+    interface UC {
+        String USER_ACCOUT = "user_account";
+    }
+
 }

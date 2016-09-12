@@ -1,15 +1,19 @@
 package dev.nightq.wts.app.baseView;
 
+import javax.inject.Inject;
+
 /**
  * @author Nightq
  * 用于MVP模式 的 presenter
  * @param <T>
  */
-public interface BaseMVPPresenter<T> {
+public abstract class BaseMVPPresenter<T extends BaseMVPView> {
 
+    @Inject
+    public T mView;
     /**
      * 初始化加载
      */
-    void loadAfterCreated();
+    public void loadAfterCreated() {};
 
 }

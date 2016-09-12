@@ -1,9 +1,10 @@
 package dev.nightq.wts.ui.login;
 
 import android.app.Activity;
-import android.content.Context;
 
+import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.LogInCallback;
 import com.avos.sns.SNS;
 import com.avos.sns.SNSBase;
 import com.avos.sns.SNSCallback;
@@ -13,26 +14,20 @@ import com.avos.sns.SNSType;
 import javax.inject.Inject;
 
 import dev.nightq.wts.R;
-import dev.nightq.wts.app.baseView.BaseMVPPresenter;
+import dev.nightq.wts.app.WTSApplication;
 import dev.nightq.wts.app.scope.ActivityScope;
+import dev.nightq.wts.model.user.User;
 import dev.nightq.wts.tools.ResourceHelper;
 import dev.nightq.wts.tools.ToastHelper;
-import dev.nightq.wts.ui.main.MainActivity;
 
 /**
  * Created by Nightq on 16/9/9.
  */
 @ActivityScope
-public class LoginPresenter implements LoginContract.Presenter {
+public class LoginPresenter extends LoginContract.Presenter {
 
     @Inject
     public LoginPresenter() {
-    }
-
-
-    @Override
-    public void loadAfterCreated() {
-
     }
 
     @Override
@@ -42,7 +37,13 @@ public class LoginPresenter implements LoginContract.Presenter {
             public void done(SNSBase object, SNSException e) {
                 if (e == null) {
                     ToastHelper.show("login ok " + object);
-                    SNS.associateWithAuthData(AVUser.getCurrentUser(), object.userInfo(), null);
+                    SNS.loginWithAuthData(object.userInfo(), new LogInCallback<AVUser>() {
+                        @Override
+                        public void done(AVUser avUser, AVException e) {
+                            WTSApplication.getInstance().switchUser(new User(avUser));
+                            mView.loginSuccess();
+                        }
+                    });
                 }
             }
         };
@@ -58,4 +59,10 @@ public class LoginPresenter implements LoginContract.Presenter {
         }
 
     }
+
+    public void register() {
+//        SNS.lo
+
+    }
+
 }

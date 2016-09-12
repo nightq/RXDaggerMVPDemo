@@ -1,6 +1,6 @@
 package dev.nightq.wts.repository.services;
 
-import dev.nightq.wts.model.User;
+import dev.nightq.wts.model.user.User;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.PUT;

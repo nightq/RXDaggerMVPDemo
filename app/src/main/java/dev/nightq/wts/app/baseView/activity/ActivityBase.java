@@ -1,16 +1,23 @@
 package dev.nightq.wts.app.baseView.activity;
 
+import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import javax.annotation.Nullable;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import dev.nightq.wts.R;
+import dev.nightq.wts.model.eventBus.SessionChangeEvent;
+import dev.nightq.wts.tools.LogHelper;
 import dev.nightq.wts.tools.ResourceHelper;
 
 /**
@@ -95,4 +102,28 @@ public abstract class ActivityBase
         return true;
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(SessionChangeEvent event) {
+        onSessionChange();
+    }
+
+    /**
+     * 登录状态变化
+     */
+    protected void onSessionChange () {
+        // todo nightq now
+        LogHelper.e("nightq", "");
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
 }

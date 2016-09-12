@@ -6,7 +6,7 @@ import javax.inject.Inject;
 
 import dev.nightq.wts.app.WTSApplication;
 import dev.nightq.wts.app.scope.UserScope;
-import dev.nightq.wts.model.User;
+import dev.nightq.wts.model.user.User;
 import dev.nightq.wts.tools.Constants;
 
 /**
@@ -26,7 +26,7 @@ public class UserSPRepository {
             WTSApplication application,
             User user) {
         mUserSP = application.getSharedPreferences(
-                Constants.Config.USER_SP + user.getIdString(),
+                Constants.Config.USER_SP + user.getId(),
                 0);
     }
 
