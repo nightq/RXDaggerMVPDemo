@@ -1,5 +1,7 @@
 package dev.nightq.wts.ui.login;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,9 +15,11 @@ import butterknife.OnClick;
 import dev.nightq.wts.R;
 import dev.nightq.wts.app.WTSApplication;
 import dev.nightq.wts.app.baseView.activity.MVPActivityBase;
+import dev.nightq.wts.tools.Constants;
 
 /**
  * A login screen that offers login via email/password.
+ * session 状态变化会有全局的 event 发出
  */
 public class LoginActivity
         extends MVPActivityBase<LoginPresenter>
@@ -117,6 +121,14 @@ public class LoginActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         SNS.onActivityResult(requestCode, resultCode, data, lastLoginType);
+    }
+
+    /**
+     * login
+     */
+    public static void startLoginActivity (Activity activity) {
+        Intent intent = new Intent(activity, LoginActivity.class);
+        activity.startActivityForResult(intent, Constants.ActivityRequest.AR_LOGIN);
     }
 
 }

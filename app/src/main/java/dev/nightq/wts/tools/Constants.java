@@ -29,4 +29,11 @@ public interface Constants {
         String USER_ACCOUT = "user_account";
     }
 
+    /**
+     * activity request code 常量
+     */
+    interface ActivityRequest {
+        int AR_LOGIN = 10000;
+    }
+
 }

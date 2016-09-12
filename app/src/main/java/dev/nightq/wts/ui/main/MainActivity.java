@@ -10,14 +10,23 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import javax.inject.Inject;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import dev.nightq.wts.R;
 import dev.nightq.wts.app.WTSApplication;
 import dev.nightq.wts.app.baseView.activity.MVPActivityBase;
+import dev.nightq.wts.model.user.User;
 import dev.nightq.wts.repository.GlobalSPRepository;
 import dev.nightq.wts.repository.UserSPRepository;
+import dev.nightq.wts.tools.ViewHelper;
+import dev.nightq.wts.ui.login.LoginActivity;
 
 public class MainActivity extends MVPActivityBase<MainPresenter>
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -25,9 +34,20 @@ public class MainActivity extends MVPActivityBase<MainPresenter>
 
     @Inject
     GlobalSPRepository mGlobalSPRepository;
-//
+    //
     @Inject
     UserSPRepository mUserSPRepository;
+
+    @Inject
+    User mUser;
+
+    @Bind(R.id.imgAvatar)
+    ImageView imgAvatar;
+    @Bind(R.id.tvName)
+    TextView tvName;
+    @Bind(R.id.tvInfo)
+    TextView tvInfo;
+
 
     @Override
     public void getIntentDataInActivityBase(Bundle savedInstanceState) {
@@ -36,11 +56,23 @@ public class MainActivity extends MVPActivityBase<MainPresenter>
 
     @Override
     public int onCreateBase() {
-        return R.layout.activity_main;
+        return R.layout.main;
+    }
+
+    @Override
+    public boolean createDefaultToolBar() {
+        return false;
+    }
+
+    @Override
+    public boolean reinjectWhenSessionChange() {
+        return true;
     }
 
     @Override
     public void initActivityBaseView() {
+
+        getActionbarBase().setTitle(R.string.home_title);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +107,6 @@ public class MainActivity extends MVPActivityBase<MainPresenter>
                 .userComponent(WTSApplication.getInstance().getUserComponent())
                 .mainModule(new MainModule(this))
                 .build().inject(this);
-//        mGlobalSPRepository.
     }
 
     @Override
@@ -85,6 +116,15 @@ public class MainActivity extends MVPActivityBase<MainPresenter>
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+        }
+    }
+
+    @OnClick(R.id.layoutNavHeader)
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.layoutNavHeader:
+                LoginActivity.startLoginActivity(this);
+                break;
         }
     }
 
@@ -132,5 +172,18 @@ public class MainActivity extends MVPActivityBase<MainPresenter>
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    /**
+     * 刷新 nav 的 user 信息
+     */
+    public void refreshNavUserInfo() {
+//        ViewHelper.showTextToView(getCu);
+    }
+
+    @Override
+    protected void onSessionChange() {
+        super.onSessionChange();
+        refreshNavUserInfo();
     }
 }

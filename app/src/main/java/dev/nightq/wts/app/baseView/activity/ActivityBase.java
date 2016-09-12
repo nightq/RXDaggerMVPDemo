@@ -102,8 +102,21 @@ public abstract class ActivityBase
         return true;
     }
 
+    /**
+     * 登录态变化的时候需要重新注入吗
+     *
+     * @return true 默认不需要重新注入
+     */
+    public boolean reinjectWhenSessionChange() {
+        return false;
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(SessionChangeEvent event) {
+        // 状态变化,需要全部重新刷新 Component, 重新注入新的数据
+        if (reinjectWhenSessionChange()) {
+            setupComponent();
+        }
         onSessionChange();
     }
 

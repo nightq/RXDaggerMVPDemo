@@ -13,4 +13,8 @@
     <!-- login -->
     <string name="toast_login_error">登录失败:%s</string>
 
+    <!-- home -->
+    <string name="home_title">欲言又止</string>
+
+
 </resources>
