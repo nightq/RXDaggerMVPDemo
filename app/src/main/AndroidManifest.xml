@@ -33,8 +33,8 @@
         </activity>
 
         <activity android:name=".ui.login.LoginActivity" />
-        <activity android:name=".ui.article.list.ArticlesListActivity" />
         <activity android:name=".ui.article.publish.PublishArticleActivity" />
+        <activity android:name=".ui.article.list.activity.ArticlesListActivity" />
         <activity android:name=".ui.article.read.ReadArticleActivity" />
 
         <!-- 实时通信模块、推送（若使用该功能，需添加以下声明）START -->

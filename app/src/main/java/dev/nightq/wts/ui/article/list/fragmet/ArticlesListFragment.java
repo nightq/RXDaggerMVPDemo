@@ -1,8 +1,7 @@
-package dev.nightq.wts.ui.article.list;
+package dev.nightq.wts.ui.article.list.fragmet;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
@@ -16,12 +15,12 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import dev.nightq.wts.R;
 import dev.nightq.wts.app.WTSApplication;
-import dev.nightq.wts.app.baseView.activity.MVPActivityBase;
+import dev.nightq.wts.app.baseView.fragment.FragmentBase;
 import dev.nightq.wts.model.article.Article;
-import dev.nightq.wts.tools.Constants;
 import dev.nightq.wts.tools.DeviceHelper;
 import dev.nightq.wts.tools.ResourceHelper;
 import dev.nightq.wts.tools.ToastHelper;
+import dev.nightq.wts.ui.article.list.fragmet.recyclerView.ArticlesAdapter;
 import dev.nightq.wts.widgets.recyclerView.RecycleViewDivider;
 import dev.nightq.wts.widgets.recyclerView.RecyclerViewBase;
 import dev.nightq.wts.widgets.special.BaseLayoutEmpty;
@@ -30,9 +29,12 @@ import dev.nightq.wts.widgets.special.BaseLayoutEmpty;
  * A login screen that offers login via email/password.
  * session 状态变化会有全局的 event 发出
  */
-public class ArticlesListActivity
-        extends MVPActivityBase<ArticlesListPresenter>
-        implements ArticlesListContract.View {
+public class ArticlesListFragment
+        extends FragmentBase
+        implements ArticlesListContract.View, SwipeRefreshLayout.OnRefreshListener {
+
+    @Inject
+    public ArticlesListPresenter mPresenter;
 
     /**
      *
@@ -46,6 +48,15 @@ public class ArticlesListActivity
     RecyclerViewBase recyclerView;
     @Bind(R.id.baseLayoutEmpty)
     BaseLayoutEmpty baseLayoutEmpty;
+    @Bind(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
+
+    public static ArticlesListFragment newInstance() {
+        return new ArticlesListFragment();
+    }
+
+    public ArticlesListFragment() {
+    }
 
     @Override
     public void getIntentDataInActivityBase(Bundle savedInstanceState) {
@@ -54,24 +65,25 @@ public class ArticlesListActivity
 
     @Override
     public int onCreateBase() {
-        return R.layout.articles_layout;
+        return R.layout.fragment_articles_list;
     }
 
     @Override
     public void initActivityBaseView() {
-
+        swipeRefreshLayout.setOnRefreshListener(this);
     }
 
     @Override
     public void loadDataOnCreate() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new RecycleViewDivider(
                 LinearLayoutManager.VERTICAL,
                 DeviceHelper.dpToPx(10),
                 DeviceHelper.dpToPx(10),
                 ResourceHelper.getColorResource(R.color.app_main_transparent_color)));
         recyclerView.setAdapter(mAdapter);
-        mPresenter.loadDetail(this);
+        swipeRefreshLayout.setRefreshing(true);
+        mPresenter.loadDetail();
     }
 
     @Override
@@ -86,10 +98,12 @@ public class ArticlesListActivity
     public void loadSuccess() {
         mAdapter.notifyDataSetChanged();
         checkEmpty();
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void loadFailed(AVException e) {
+        swipeRefreshLayout.setRefreshing(false);
         ToastHelper.show(R.string.base_load_failed);
     }
 
@@ -104,13 +118,9 @@ public class ArticlesListActivity
         }
     }
 
-    /**
-     * read
-     */
-    public static void startArticlesActivity(
-            Activity activity) {
-        Intent intent = new Intent(activity, ArticlesListActivity.class);
-        activity.startActivityForResult(intent, Constants.ActivityRequest.AR_ARTICLE_LIST);
+    @Override
+    public void onRefresh() {
+        mPresenter.loadDetail();
     }
 }
 

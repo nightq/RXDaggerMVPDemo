@@ -4,6 +4,7 @@ import android.text.Html;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import dev.nightq.wts.R;
@@ -42,9 +43,31 @@ public class ViewHelper {
     }
 
     /**
+     * 设置 包含了 文字和图标的 menu
+     */
+    public static void setMenuContent (Menu menu,
+                                         int itemId,
+                                         int tvId,
+                                         int imgId,
+                                         int tvResId,
+                                         int imgResId) {
+        View view = menu.findItem(itemId).getActionView();
+
+        TextView tv = (TextView) view.findViewById(tvId);
+        tv.setText(tvResId);
+
+        ImageView img = (ImageView) view.findViewById(imgId);
+        img.setImageResource(imgResId);
+    }
+
+    /**
      * 设置menu tv 的文字
      */
-    public static void setMenuTVContent (Menu menu, int id, int resId, View.OnClickListener listener) {
+    public static void setMenuTVContent (
+            Menu menu,
+            int id,
+            int resId,
+            View.OnClickListener listener) {
         TextView tv = (TextView) menu.findItem(id).getActionView();
         tv.setText(resId);
         tv.setOnClickListener(listener);

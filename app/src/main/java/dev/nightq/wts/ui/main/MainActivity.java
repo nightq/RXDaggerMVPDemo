@@ -2,9 +2,12 @@ package dev.nightq.wts.ui.main;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,7 +16,6 @@ import android.widget.TextView;
 import javax.inject.Inject;
 
 import butterknife.Bind;
-import butterknife.OnClick;
 import dev.nightq.wts.R;
 import dev.nightq.wts.app.UserSessionHelper;
 import dev.nightq.wts.app.WTSApplication;
@@ -21,14 +23,21 @@ import dev.nightq.wts.app.baseView.activity.MVPActivityBase;
 import dev.nightq.wts.model.user.User;
 import dev.nightq.wts.repository.GlobalSPRepository;
 import dev.nightq.wts.repository.UserSPRepository;
+import dev.nightq.wts.tools.AndroidComponentHelper;
 import dev.nightq.wts.tools.ViewHelper;
-import dev.nightq.wts.ui.article.list.ArticlesListActivity;
+import dev.nightq.wts.ui.article.list.activity.ArticlesListActivity;
+import dev.nightq.wts.ui.article.list.fragmet.ArticlesListFragment;
 import dev.nightq.wts.ui.article.publish.PublishArticleActivity;
 import dev.nightq.wts.ui.login.LoginActivity;
 
 public class MainActivity extends MVPActivityBase<MainPresenter>
         implements NavigationView.OnNavigationItemSelectedListener,
         MainContract.View {
+
+    /**
+     * 当前是文章列表
+     */
+    public static final int CONTANT_ARTICLES_LIST = 1;
 
     @Inject
     GlobalSPRepository mGlobalSPRepository;
@@ -48,6 +57,11 @@ public class MainActivity extends MVPActivityBase<MainPresenter>
     NavigationView navView;
     @Bind(R.id.drawer_layout)
     DrawerLayout drawerLayout;
+
+    /**
+     * 当前界面内容是啊哈
+     */
+    public int contentIndex = CONTANT_ARTICLES_LIST;
 
     @Override
     public void getIntentDataInActivityBase(Bundle savedInstanceState) {
@@ -80,16 +94,48 @@ public class MainActivity extends MVPActivityBase<MainPresenter>
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
+        initNavView();
+    }
+
+    /**
+     * 初始化
+     */
+    public void initNavView() {
         navView.setNavigationItemSelectedListener(this);
+
         navHeaderView = navView.getHeaderView(0);
         navHeaderView.findViewById(R.id.layoutNavHeader)
-                .setOnClickListener(onClickListener);
+                .setOnClickListener(onClickHeaderListener);
+
+        Menu menu = navView.getMenu();
+        ViewHelper.setMenuContent(
+                menu,
+                R.id.navArticlesList,
+                R.id.textView,
+                R.id.imageView,
+                R.string.home_nav_articles_list,
+                R.drawable.ic_menu_gallery);
+        ViewHelper.setMenuContent(
+                menu,
+                R.id.navArticlesList,
+                R.id.textView,
+                R.id.imageView,
+                R.string.home_nav_articles_list,
+                R.drawable.ic_menu_gallery);
+        ViewHelper.setMenuContent(
+                menu,
+                R.id.navLoginout,
+                R.id.textView,
+                R.id.imageView,
+                R.string.home_nav_logout,
+                R.drawable.ic_menu_manage);
     }
 
     @Override
     public void loadDataOnCreate() {
         mPresenter.loadAfterCreated();
         refreshNavUserInfo();
+        refreshContentUI();
     }
 
     @Override
@@ -109,27 +155,45 @@ public class MainActivity extends MVPActivityBase<MainPresenter>
         }
     }
 
-    public View.OnClickListener onClickListener = new View.OnClickListener() {
+    public View.OnClickListener onClickHeaderListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            MainActivity.this.onClick(view);
+            if (mUser.checkValidSession(false)) return;
+            LoginActivity.startLoginActivity(MainActivity.this);
         }
     };
 
-    @OnClick({
-            R.id.fab})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.layoutNavHeader:
-                if (mUser.checkValidSession(false)) return;
-                LoginActivity.startLoginActivity(this);
-                break;
-            case R.id.fab:
-                if (!mUser.checkValidSession(true)) return;
-                PublishArticleActivity.startPublishArticleActivity(this);
-                break;
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (CONTANT_ARTICLES_LIST == contentIndex) {
+            return true;
+        } else {
+            return false;
         }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.base_actionbar_menu_tv, menu);
+        ViewHelper.setMenuTVContent(
+                menu, R.id.textView,
+                R.string.publish_article_menu_publish,
+                menuClickListener);
+        return true;
+    }
+
+    View.OnClickListener menuClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.textView:
+                    if (!mUser.checkValidSession(true)) return;
+                    PublishArticleActivity.startPublishArticleActivity(MainActivity.this);
+                    break;
+            }
+        }
+    };
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -138,12 +202,33 @@ public class MainActivity extends MVPActivityBase<MainPresenter>
         int id = item.getItemId();
 
         if (id == R.id.navArticlesList) {
+            contentIndex = CONTANT_ARTICLES_LIST;
+            refreshContentUI();
+        } else if (id == R.id.navSkipArticlesList) {
             ArticlesListActivity.startArticlesActivity(this);
         } else if (id == R.id.navLoginout) {
             UserSessionHelper.logout();
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    /**
+     * 切换到文章列表 主界面
+     */
+    public void refreshContentUI() {
+        Fragment fragment = getSupportFragmentManager()
+                .findFragmentById(R.id.baseActivityContentLayoutContainer);
+        if (fragment == null) {
+            if (contentIndex == CONTANT_ARTICLES_LIST) {
+                fragment = ArticlesListFragment.newInstance();
+            }
+        } else if (fragment instanceof ArticlesListFragment) {
+            return;
+        }
+        AndroidComponentHelper.addFragmentToActivity(getSupportFragmentManager(),
+                fragment, R.id.baseActivityContentLayoutContainer);
+        getActionbarBase().setTitle(R.string.articles_list_title);
     }
 
     /**

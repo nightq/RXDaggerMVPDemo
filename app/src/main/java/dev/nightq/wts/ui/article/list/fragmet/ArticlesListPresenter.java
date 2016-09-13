@@ -1,12 +1,9 @@
-package dev.nightq.wts.ui.article.list;
-
-import android.app.Activity;
+package dev.nightq.wts.ui.article.list.fragmet;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
-import com.avos.avoscloud.GetCallback;
 
 import java.util.List;
 
@@ -30,13 +27,14 @@ public class ArticlesListPresenter extends ArticlesListContract.Presenter {
     }
 
     @Override
-    void loadDetail(Activity activity) {
+    void loadDetail() {
         AVQuery<AVObject> avQuery = new AVQuery<>(TableNames.Article.Name);
         avQuery.addDescendingOrder(TableNames.Article.WriteOn)
                 .findInBackground(new FindCallback<AVObject>() {
                     @Override
                     public void done(List<AVObject> list, AVException e) {
                         if (e == null) {
+                            mData.clear();
                             for (AVObject avObject : list) {
                                 mData.add(new Article(avObject));
                             }

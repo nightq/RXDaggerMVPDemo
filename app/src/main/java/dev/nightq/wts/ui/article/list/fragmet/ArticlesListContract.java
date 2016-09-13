@@ -1,14 +1,11 @@
-package dev.nightq.wts.ui.article.list;
+package dev.nightq.wts.ui.article.list.fragmet;
 
 import android.app.Activity;
 
 import com.avos.avoscloud.AVException;
 
-import java.util.List;
-
 import dev.nightq.wts.app.baseView.BaseMVPPresenter;
 import dev.nightq.wts.app.baseView.BaseMVPView;
-import dev.nightq.wts.model.article.Article;
 
 
 /**
@@ -37,6 +34,6 @@ public interface ArticlesListContract {
         /**
          * 加载数据
          */
-        abstract void loadDetail(Activity activity);
+        abstract void loadDetail();
     }
 }

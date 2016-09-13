@@ -1,4 +1,4 @@
-package dev.nightq.wts.ui.article.list;
+package dev.nightq.wts.ui.article.list.fragmet.recyclerView;
 
 import android.view.View;
 

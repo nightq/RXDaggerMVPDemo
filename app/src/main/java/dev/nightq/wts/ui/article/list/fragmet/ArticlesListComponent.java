@@ -1,4 +1,4 @@
-package dev.nightq.wts.ui.article.list;
+package dev.nightq.wts.ui.article.list.fragmet;
 
 import dagger.Component;
 import dev.nightq.wts.app.component.UserComponent;
@@ -11,6 +11,5 @@ import dev.nightq.wts.app.scope.ActivityScope;
 @Component(dependencies = UserComponent.class,
         modules = {ArticlesListModule.class})
 public interface ArticlesListComponent {
-    ArticlesListActivity inject(ArticlesListActivity activity);
-
+    ArticlesListFragment inject(ArticlesListFragment fragment);
 }

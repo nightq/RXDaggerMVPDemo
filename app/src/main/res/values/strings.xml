@@ -27,7 +27,8 @@
 
     <!-- home -->
     <string name="home_title">欲言又止</string>
-    <string name="home_nav_articles_list">文章列表</string>
+    <string name="home_articles_list_title">文章列表</string>
+    <string name="home_nav_articles_list">@string/home_articles_list_title</string>
     <string name="home_nav_logout">退出</string>
 
     <!-- publish article -->
@@ -40,5 +41,8 @@
 
     <!-- read article -->
     <string name="read_article_date">发布日期: %s</string>
+
+    <!-- articles list -->
+    <string name="articles_list_title">@string/home_articles_list_title</string>
 
 </resources>
