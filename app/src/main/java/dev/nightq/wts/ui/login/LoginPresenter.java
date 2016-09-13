@@ -13,10 +13,8 @@ import com.avos.sns.SNSType;
 
 import javax.inject.Inject;
 
-import dev.nightq.wts.R;
 import dev.nightq.wts.app.WTSApplication;
 import dev.nightq.wts.app.scope.ActivityScope;
-import dev.nightq.wts.tools.ResourceHelper;
 import dev.nightq.wts.tools.ToastHelper;
 
 /**

@@ -1,7 +1,5 @@
 package dev.nightq.wts.ui.article.list.fragmet;
 
-import android.app.Activity;
-
 import com.avos.avoscloud.AVException;
 
 import dev.nightq.wts.app.baseView.BaseMVPPresenter;

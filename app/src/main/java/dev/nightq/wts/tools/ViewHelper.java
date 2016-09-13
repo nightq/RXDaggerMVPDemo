@@ -7,8 +7,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import dev.nightq.wts.R;
-
 /**
  * Created by Nightq on 16/9/12.
  * @see android.view.View 的 帮助类

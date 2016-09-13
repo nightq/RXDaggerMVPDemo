@@ -16,7 +16,6 @@ import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import dev.nightq.wts.app.BaseApplication;

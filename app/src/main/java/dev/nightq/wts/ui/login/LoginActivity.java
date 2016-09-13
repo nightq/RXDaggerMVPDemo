@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.avos.avoscloud.AVException;
 import com.avos.sns.SNS;
 import com.avos.sns.SNSType;
 
