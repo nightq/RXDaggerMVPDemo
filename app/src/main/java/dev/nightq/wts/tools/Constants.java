@@ -34,6 +34,16 @@ public interface Constants {
      */
     interface ActivityRequest {
         int AR_LOGIN = 10000;
+        int AR_ARTICLE_PUBLISH = 10100;
+        int AR_ARTICLE_READ = 10200;
+        int AR_ARTICLE_LIST = 10300;
+    }
+
+    /**
+     * intent extra name
+     */
+    interface Extra {
+        String EXTRA_ID = "extra_id";
     }
 
 }

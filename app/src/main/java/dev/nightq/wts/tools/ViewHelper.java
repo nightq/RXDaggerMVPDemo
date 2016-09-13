@@ -2,8 +2,11 @@ package dev.nightq.wts.tools;
 
 import android.text.Html;
 import android.text.TextUtils;
+import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
+
+import dev.nightq.wts.R;
 
 /**
  * Created by Nightq on 16/9/12.
@@ -36,6 +39,15 @@ public class ViewHelper {
                 view.setText(Html.fromHtml(content));
             }
         }
+    }
+
+    /**
+     * 设置menu tv 的文字
+     */
+    public static void setMenuTVContent (Menu menu, int id, int resId, View.OnClickListener listener) {
+        TextView tv = (TextView) menu.findItem(id).getActionView();
+        tv.setText(resId);
+        tv.setOnClickListener(listener);
     }
 
 }

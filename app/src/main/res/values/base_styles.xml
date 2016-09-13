@@ -3,6 +3,8 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <!-- actionbar style -->
+        <item name="android:actionBarStyle">@style/AppTheme.AppBarOverlay</item>
         <!-- Customize your theme here. -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -12,8 +14,7 @@
         <item name="colorPrimaryDark">@color/app_main_dark_color</item>
         <!--Window color-->
         <item name="android:windowBackground">@color/app_main_bg_color</item>
-        <!--Actionbar text color-->
-        <item name="android:textColorPrimary">@color/app_main_txt_color</item>
+        <item name="android:textColorPrimary">@color/app_white</item>
         <!-- AlertDialog -->
         <item name="android:alertDialogTheme">@style/Theme.AppCompat.Light.Dialog</item>
         <item name="android:actionMenuTextColor">@color/app_white</item>
@@ -26,9 +27,8 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    </style>
 
     <style name="AppTheme.Transparent">
         <item name="android:windowBackground">@color/app_transparent</item>
@@ -63,8 +63,8 @@
     </style>
 
     <style name="ActionBarTitleStyle">
-        <item name="android:textSize">20sp</item>
-        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">@dimen/app_text_big_size</item>
+        <item name="android:textColor">@color/app_white</item>
     </style>
 
     <!-- style for the action button -->

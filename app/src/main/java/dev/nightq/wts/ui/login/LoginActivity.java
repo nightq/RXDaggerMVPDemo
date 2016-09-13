@@ -1,21 +1,26 @@
 package dev.nightq.wts.ui.login;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.avos.avoscloud.AVException;
 import com.avos.sns.SNS;
 import com.avos.sns.SNSType;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 import dev.nightq.wts.R;
 import dev.nightq.wts.app.WTSApplication;
 import dev.nightq.wts.app.baseView.activity.MVPActivityBase;
+import dev.nightq.wts.model.user.User;
 import dev.nightq.wts.tools.Constants;
+import dev.nightq.wts.tools.ResourceHelper;
+import dev.nightq.wts.tools.ToastHelper;
 
 /**
  * A login screen that offers login via email/password.
@@ -44,9 +49,17 @@ public class LoginActivity
     @Bind(R.id.btnLoginWeibo)
     Button btnLoginWeibo;
 
+    @Inject
+    public User mUser;
+
     @Override
     public void getIntentDataInActivityBase(Bundle savedInstanceState) {
 
+    }
+
+    @Override
+    public boolean reinjectWhenSessionChange() {
+        return true;
     }
 
     @Override
@@ -72,9 +85,20 @@ public class LoginActivity
     }
 
     @Override
-    public void loginSuccess() {
-        setResult(RESULT_OK);
-        finish();
+    protected void onSessionChange() {
+        super.onSessionChange();
+        if (mUser.checkValidSession(false)) {
+            // session 状态变了,并且有登录态了。那就结束返回
+            setResult(RESULT_OK);
+            finish();
+        }
+    }
+
+    @Override
+    public void loginFailed(Exception e) {
+        ToastHelper.show(
+                ResourceHelper.getString(
+                        R.string.login_toast_error, ((e == null) ? "" : e.getMessage())));
     }
 
     SNSType lastLoginType;

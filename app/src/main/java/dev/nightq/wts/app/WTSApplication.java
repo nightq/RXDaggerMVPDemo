@@ -2,6 +2,8 @@ package dev.nightq.wts.app;
 
 import android.support.annotation.NonNull;
 
+import com.avos.avoscloud.AVUser;
+
 import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Inject;
@@ -45,26 +47,33 @@ public class WTSApplication extends BaseApplication {
                 .build();
         mAppComponent.inject(this);
 
-        aotuLogin();
+        refreUserSessionAndSendEvent();
 
     }
 
     /**
      * 自动登录上一个用户
      */
-    public void aotuLogin() {
-        switchUser(mGlobalSPRepository.getCurrentUser());
+    public void refreUserSessionAndSendEvent() {
+        AVUser avUser = AVUser.getCurrentUser();
+        User user;
+        if (avUser != null) {
+            user = UserSessionHelper.getUserFromAVUser(avUser);
+        } else {
+            user = new User();
+        }
+        switchUser(user);
     }
 
     /**
      * @param user
      * @return
      */
-    public UserComponent switchUser(
+    private UserComponent switchUser(
             @NonNull User user) {
         mUserComponent = mAppComponent.plus(new UserModule(user),
                 new UserRepositoryModule());
-        if (!user.isLocal) {
+        if (user.isLocal) {
             EventBus.getDefault().post(new SessionChangeEvent(false));
         } else {
             EventBus.getDefault().post(new SessionChangeEvent(true));

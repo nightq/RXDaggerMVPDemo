@@ -6,9 +6,10 @@
     <string name="base_file_exception">文件IO异常%s</string>
     <string name="base_deny_exception">没有权限异常%s</string>
 
+    <dimen name="base_small_item_height">40dp</dimen>
     <dimen name="base_actionbar_height">56dp</dimen>
 
     <string name="base_loading">Loading...</string>
     <string name="base_waiting">Waiting...</string>
-
+    
 </resources>

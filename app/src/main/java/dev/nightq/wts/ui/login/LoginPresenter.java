@@ -16,7 +16,6 @@ import javax.inject.Inject;
 import dev.nightq.wts.R;
 import dev.nightq.wts.app.WTSApplication;
 import dev.nightq.wts.app.scope.ActivityScope;
-import dev.nightq.wts.model.user.User;
 import dev.nightq.wts.tools.ResourceHelper;
 import dev.nightq.wts.tools.ToastHelper;
 
@@ -40,8 +39,12 @@ public class LoginPresenter extends LoginContract.Presenter {
                     SNS.loginWithAuthData(object.userInfo(), new LogInCallback<AVUser>() {
                         @Override
                         public void done(AVUser avUser, AVException e) {
-                            WTSApplication.getInstance().switchUser(new User(avUser));
-                            mView.loginSuccess();
+                            if (e == null) {
+                                // 已经会刷新 session 并且 发送 session change 的 event
+                                WTSApplication.getInstance().refreUserSessionAndSendEvent();
+                            } else {
+                                mView.loginFailed(e);
+                            }
                         }
                     });
                 }
@@ -53,15 +56,8 @@ public class LoginPresenter extends LoginContract.Presenter {
             SNS.setupPlatform(activity, type, appKey, appSec, redirectUrl);
             SNS.loginWithCallback(activity, type, myCallback);
         } catch (Exception e) {
-            ToastHelper.show(
-                    ResourceHelper.getString(
-                            R.string.toast_login_error, e.getMessage()));
+            mView.loginFailed(e);
         }
-
-    }
-
-    public void register() {
-//        SNS.lo
 
     }
 

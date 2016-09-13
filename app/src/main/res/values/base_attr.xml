@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="BaseLayoutEmpty">
+        <attr name="imgResource" format="reference" />
+        <attr name="tvText" format="string"/>
+    </declare-styleable>
+
+</resources>

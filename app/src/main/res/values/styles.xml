@@ -1,4 +1,28 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
+
+    <style name="BaseTextStyle" >
+        <item name="android:textSize">@dimen/app_text_normal_size</item>
+        <item name="android:textColor">@color/app_main_txt_color</item>
+    </style>
+
+    <style name="BaseTextStyle.Content" >
+        <item name="android:gravity">top|left</item>
+    </style>
+
+    <style name="BaseTextStyle.Item" >
+        <item name="android:gravity">center_vertical|left</item>
+    </style>
+
+    <style name="BaseTextStyle.Tip" >
+        <item name="android:textSize">@dimen/app_text_small_size</item>
+        <item name="android:textColor">@color/app_main_txt_light_color</item>
+    </style>
+
+    <style name="BaseTextStyle.Title" >
+        <item name="android:textSize">@dimen/app_text_big_size</item>
+        <item name="android:textColor">@color/app_main_txt_color</item>
+        <item name="android:gravity">center</item>
+    </style>
 
 </resources>

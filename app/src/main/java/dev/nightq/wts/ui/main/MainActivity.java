@@ -1,31 +1,29 @@
 package dev.nightq.wts.ui.main;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import javax.inject.Inject;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dev.nightq.wts.R;
+import dev.nightq.wts.app.UserSessionHelper;
 import dev.nightq.wts.app.WTSApplication;
 import dev.nightq.wts.app.baseView.activity.MVPActivityBase;
 import dev.nightq.wts.model.user.User;
 import dev.nightq.wts.repository.GlobalSPRepository;
 import dev.nightq.wts.repository.UserSPRepository;
 import dev.nightq.wts.tools.ViewHelper;
+import dev.nightq.wts.ui.article.list.ArticlesListActivity;
+import dev.nightq.wts.ui.article.publish.PublishArticleActivity;
 import dev.nightq.wts.ui.login.LoginActivity;
 
 public class MainActivity extends MVPActivityBase<MainPresenter>
@@ -41,13 +39,15 @@ public class MainActivity extends MVPActivityBase<MainPresenter>
     @Inject
     User mUser;
 
-    @Bind(R.id.imgAvatar)
+    View navHeaderView;
     ImageView imgAvatar;
-    @Bind(R.id.tvName)
     TextView tvName;
-    @Bind(R.id.tvInfo)
     TextView tvInfo;
 
+    @Bind(R.id.nav_view)
+    NavigationView navView;
+    @Bind(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
 
     @Override
     public void getIntentDataInActivityBase(Bundle savedInstanceState) {
@@ -74,31 +74,22 @@ public class MainActivity extends MVPActivityBase<MainPresenter>
 
         getActionbarBase().setTitle(R.string.home_title);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer,
+                this, drawerLayout,
                 mToolBarAsActionBar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
+        navView.setNavigationItemSelectedListener(this);
+        navHeaderView = navView.getHeaderView(0);
+        navHeaderView.findViewById(R.id.layoutNavHeader)
+                .setOnClickListener(onClickListener);
     }
 
     @Override
     public void loadDataOnCreate() {
         mPresenter.loadAfterCreated();
+        refreshNavUserInfo();
     }
 
     @Override
@@ -111,43 +102,33 @@ public class MainActivity extends MVPActivityBase<MainPresenter>
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
     }
 
-    @OnClick(R.id.layoutNavHeader)
+    public View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            MainActivity.this.onClick(view);
+        }
+    };
+
+    @OnClick({
+            R.id.fab})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.layoutNavHeader:
+                if (mUser.checkValidSession(false)) return;
                 LoginActivity.startLoginActivity(this);
                 break;
+            case R.id.fab:
+                if (!mUser.checkValidSession(true)) return;
+                PublishArticleActivity.startPublishArticleActivity(this);
+                break;
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -156,21 +137,12 @@ public class MainActivity extends MVPActivityBase<MainPresenter>
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.navArticlesList) {
+            ArticlesListActivity.startArticlesActivity(this);
+        } else if (id == R.id.navLoginout) {
+            UserSessionHelper.logout();
         }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
@@ -178,7 +150,12 @@ public class MainActivity extends MVPActivityBase<MainPresenter>
      * 刷新 nav 的 user 信息
      */
     public void refreshNavUserInfo() {
-//        ViewHelper.showTextToView(getCu);
+        imgAvatar = (ImageView) navHeaderView.findViewById(R.id.imgAvatar);
+        tvName = (TextView) navHeaderView.findViewById(R.id.tvName);
+        tvInfo = (TextView) navHeaderView.findViewById(R.id.tvInfo);
+
+        ViewHelper.showTextToView(mUser.getUsername(), tvName);
+        ViewHelper.showTextToView(mUser.getId(), tvInfo);
     }
 
     @Override

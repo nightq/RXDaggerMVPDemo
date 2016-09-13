@@ -18,9 +18,9 @@ public interface LoginContract {
     interface View extends BaseMVPView {
 
         /**
-         * 登录成功
+         * 失败
          */
-        void loginSuccess();
+        void loginFailed(Exception e);
 
     }
 

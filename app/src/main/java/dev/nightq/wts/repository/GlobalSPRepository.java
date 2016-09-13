@@ -35,32 +35,4 @@ public class GlobalSPRepository {
         return mGlobalSP;
     }
 
-    /**
-     * 获取当前登录的账户
-     * @return
-     */
-    public User getCurrentUser() {
-        String userAccount = mGlobalSP.getString(Constants.UC.USER_ACCOUT, null);
-        if (TextUtils.isEmpty(userAccount)) {
-            return new User();
-        }
-        User user = new User(userAccount);
-        user.isLocal = false;
-        AVUser.getCurrentUser();
-        return user;
-    }
-
-
-    /**
-     * 设置当前登录的账户
-     * @return
-     */
-    public void saveCurrentUser(User user) {
-        if (user == null) {
-            mGlobalSP.edit().remove(Constants.UC.USER_ACCOUT).apply();
-        } else {
-            mGlobalSP.edit().putString(Constants.UC.USER_ACCOUT, user.id).apply();
-        }
-    }
-
 }

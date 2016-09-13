@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/layoutItemContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/btn_white"
+        android:orientation="vertical"
+        android:padding="@dimen/normal_margin">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:minHeight="@dimen/list_item_small_height"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtArticleTitle"
+                style="@style/BaseTextStyle.Title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="@string/default_article_title" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtArticleContent"
+            style="@style/BaseTextStyle.Content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text="@string/default_article_content" />
+
+        <TextView
+            android:id="@+id/txtArticleAuthor"
+            style="@style/BaseTextStyle.Tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="@string/default_article_author" />
+
+        <TextView
+            android:id="@+id/txtArticleDate"
+            style="@style/BaseTextStyle.Tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:hint="@string/read_article_date"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="@string/default_article_write_on" />
+
+    </LinearLayout>
+</RelativeLayout>

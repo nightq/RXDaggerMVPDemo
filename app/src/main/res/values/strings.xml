@@ -10,11 +10,35 @@
     <!-- Strings related to login -->
     <string name="title_activity_home">HomeActivity</string>
 
+    <!-- default -->
+    <string name="default_article_title">孔雀东南飞</string>
+    <string name="default_article_author">文天祥</string>
+    <string name="default_article_write_on">1979年3月28日</string>
+    <string name="default_article_content">当山峰没有棱角的时候...</string>
+
+    <!-- base -->
+    <string name="base_no_data">没有内容</string>
+    <string name="base_load_failed">加载失败,请重试</string>
+    <string name="base_invalid_session_need_login">登录台失效,请重新登录</string>
+    <string name="base_no_session_need_login">登陆后继续</string>
+
     <!-- login -->
-    <string name="toast_login_error">登录失败:%s</string>
+    <string name="login_toast_error">登录失败:%s</string>
 
     <!-- home -->
     <string name="home_title">欲言又止</string>
+    <string name="home_nav_articles_list">文章列表</string>
+    <string name="home_nav_logout">退出</string>
 
+    <!-- publish article -->
+    <string name="publish_article_title">发布文章</string>
+    <string name="publish_article_title_hint">写个题目吧</string>
+    <string name="publish_article_content_hint">写点什么...</string>
+    <string name="publish_article_menu_publish">发布</string>
+    <string name="publish_article_toast_success">发布成功。</string>
+    <string name="publish_article_toast_failed">发布失败,请重试...</string>
+
+    <!-- read article -->
+    <string name="read_article_date">发布日期: %s</string>
 
 </resources>

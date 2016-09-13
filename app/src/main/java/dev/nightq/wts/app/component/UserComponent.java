@@ -5,6 +5,7 @@ import dev.nightq.wts.app.module.user.UserModule;
 import dev.nightq.wts.app.module.user.UserRepositoryModule;
 import dev.nightq.wts.app.scope.ActivityScope;
 import dev.nightq.wts.app.scope.UserScope;
+import dev.nightq.wts.model.user.User;
 import dev.nightq.wts.repository.GlobalSPRepository;
 import dev.nightq.wts.repository.UserSPRepository;
 
@@ -18,4 +19,7 @@ import dev.nightq.wts.repository.UserSPRepository;
 public interface UserComponent {
     GlobalSPRepository getGlobalSPRepository();
     UserSPRepository getUserSPRepository();
+
+    User getCurrentUser();
+
 }

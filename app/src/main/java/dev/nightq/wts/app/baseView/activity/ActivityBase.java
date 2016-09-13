@@ -34,7 +34,7 @@ public abstract class ActivityBase
     FrameLayout baseActivityContentLayoutContainer;
     @Nullable
     @Bind(R.id.baseActivityContentLayout)
-    FrameLayout baseActivityContentLayout;
+    RelativeLayout baseActivityContentLayout;
 
 
     @Override
@@ -123,7 +123,7 @@ public abstract class ActivityBase
     /**
      * 登录状态变化
      */
-    protected void onSessionChange () {
+    protected void onSessionChange() {
         // todo nightq now
         LogHelper.e("nightq", "");
     }
