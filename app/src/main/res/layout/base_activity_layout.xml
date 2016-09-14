@@ -13,11 +13,12 @@
         <include layout="@layout/base_app_compat_actionbar" />
     </android.support.design.widget.AppBarLayout>
 
+    <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
     <FrameLayout
         android:id="@+id/baseActivityContentLayoutContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
 
     </FrameLayout>
 
