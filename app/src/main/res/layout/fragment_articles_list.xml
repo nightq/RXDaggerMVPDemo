@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <dev.nightq.wts.widgets.recyclerView.RecyclerViewBase
+        <freedom.nightq.wts.widgets.recyclerView.RecyclerViewBase
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -17,7 +17,7 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <dev.nightq.wts.widgets.special.BaseLayoutEmpty
+    <freedom.nightq.wts.widgets.special.BaseLayoutEmpty
         android:id="@+id/baseLayoutEmpty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
